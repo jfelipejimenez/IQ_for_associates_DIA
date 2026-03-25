@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Respondent Status Checker</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; line-height: 1.6; background-color: #f4f7f6; }
+        .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h2 { color: #333; margin-top: 0; }
+        input[type="text"] { width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .result { margin-top: 20px; padding: 15px; border-left: 5px solid #28a745; background: #e9f7ef; }
+        .error { margin-top: 20px; padding: 15px; border-left: 5px solid #dc3545; background: #fdecea; color: #dc3545; }
+        .loading { display: none; color: #666; font-style: italic; margin-top: 10px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>IncQuery Respondent Lookup</h2>
+    <form action="/check" method="post" onsubmit="showLoading()">
+        <label for="resp_id">Respondent ID:</label>
+        <input type="text" name="resp_id" id="resp_id" placeholder="e.g. PUrLg4advac" required>
+        <button type="submit">Check Status</button>
+    </form>
+
+    <div id="loading-msg" class="loading">Connecting to IncQuery and scraping data... please wait (10-15s)</div>
+
+    {% if error %}
+        <div class="error"><strong>Error:</strong> {{ error }}</div>
+    {% endif %}
+
+    {% if result %}
+        <div class="result">
+            <h3>Report for: {{ resp_id }}</h3>
+            <p><strong>Status:</strong> {{ result.status | upper }}</p>
+            <p><strong>Term Reason:</strong> {{ result.reason }}</p>
+            <p><strong>Time Active:</strong> {{ result.time }}</p>
+            <hr>
+            <p><strong>Last Question Seen:</strong><br>{{ result.last_q }}</p>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    function showLoading() {
+        document.getElementById('loading-msg').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

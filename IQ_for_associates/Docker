@@ -1,0 +1,16 @@
+# Use Python with Chrome pre-installed
+FROM python:3.9-slim
+
+# Install Chrome and dependencies
+RUN apt-get update && apt-get install -y \
+    wget gnupg unzip curl \
+    google-chrome-stable \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set up Python app
+WORKDIR /app
+COPY . /app
+RUN pip install flask selenium google-auth google-api-python-client
+
+# Command to run
+CMD ["python", "app.py"]
