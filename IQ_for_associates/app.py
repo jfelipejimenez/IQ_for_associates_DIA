@@ -11,7 +11,7 @@ from googleapiclient.discovery import build
 app = Flask(__name__)
 
 # --- Configuration ---
-CREDENTIALS_PATH = 'C:/Users/juan.jimenez_dialect/Desktop/Automation/qc-automation-461220-bd2c48165fae.json'
+CREDENTIALS_PATH = 'qc-automation-461220-bd2c48165fae.json'
 SPREADSHEET_ID = '1muVNIlWotyMX1Rr1owKxFo2nAeYRe0WP2CdteBk8_Ec'
 SHEET_NAME = 'SDI'
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
